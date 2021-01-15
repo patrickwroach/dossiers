@@ -1,0 +1,22 @@
+
+$cornerMultiplier: 2;
+
+@mixin cornerradius($num) {
+  border-radius:$num * $cornerMultiplier * 1px;
+}
+
+.radius-xsmall{
+  @include cornerradius(1);
+}
+.radius-small{
+  @include cornerradius(2);
+}
+.radius-medium{
+  @include cornerradius(4);
+}
+.radius-large{
+  @include cornerradius(8);
+}
+.radius-xlarge{
+  @include cornerradius(16);
+}

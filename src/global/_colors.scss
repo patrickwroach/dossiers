@@ -1,0 +1,108 @@
+$colors : (
+    "grey00": #FFFFFF,
+    "grey05": #ECECF2,
+    "grey10": #E2E2EB,
+    "grey20": #CECEDA,
+    "grey30": #B1B1BD,
+    "grey40": #8B8B97,
+    "grey50": #62626C,
+    "grey70": #232328,
+    "grey80": #141417,
+    "grey90": #0D0D0F,
+    "grey100": #000000,
+
+    /* Red */
+    "red05":	#F2D9E1,
+"red10":	#FF99BA,
+"red20":	#FF6194,
+"red30":	#FF3878,
+"red40":	#E6004A,
+"red50":	#E6004A,
+"red60":	#8F002F,
+"red70":	#8F002F,
+"red80":	#660021,
+"red90":	#330009,
+
+    /* Orange */
+    "orange05":	#F2E1D9,
+"orange10":	#FFB68F,
+"orange20":	#FF8D52,
+"orange30":	#FF6F24,
+"orange40":	#F95600,
+"orange50":	#E64F00,
+"orange60":	#B33D00,
+"orange70":	#A33800,
+"orange80":	#8F3100,
+"orange90":	#380900,
+
+    /* Yellow */
+    "yellow05":	#F2EAD9,
+"yellow10":	#FFD88A,
+"yellow20":	#FFC95C,
+"yellow30":	#FFB829,
+"yellow40":	#FFAA00,
+"yellow50":	#B87700,
+"yellow60":	#8F5D00,
+"yellow70":	#7A5000,
+"yellow80":	#664200,
+"yellow90":	#2E1700,
+
+    /* Green */
+    "green05":	#D9F2EA,
+"green10":	#78E3BF,
+"green20":	#0AC284,
+"green30":	#009965,
+"green40":	#008558,
+"green50":	#008558,
+"green60":	#006851,
+"green70":	#005240,
+"green80":	#003328,
+"green90":	#002418,
+
+    /* Blue */
+    "blue05":	#D9E1F2,
+"blue10":	#8BAFF9,
+"blue20":	#4784FF,
+"blue30":	#3376FF,
+"blue40":	#1F69FF,
+"blue50":	#1F69FF,
+"blue60":	#0051D0,
+"blue70":	#0040A3,
+"blue80":	#003485,
+"blue90":	#000F33,
+
+    /* Purple */
+    "purple05":	#E3E0F4,
+"purple10":	#BAA8FA,
+"purple20":	#9378F8,
+"purple30":	#805FF6,
+"purple40":	#6138F5,
+"purple50":	#6138F5,
+"purple60":	#4D00BD,
+"purple70":	#3A0092,
+"purple80":	#28006A,
+"purple90":	#160041,
+
+);
+
+
+@function hexToRGB($hex) {
+  @return red($hex), green($hex), blue($hex);
+}
+
+:root {
+  @each $key, $value in $colors {
+      // --#{$key}rgb : #{hexToRGB($value)};
+      --#{$key} : #{hexToRGB($value)};
+  }
+  --errorTextColor : var(--red60);
+  --errorBkgColor : var(--red05);
+
+}
+
+.error-bkg-color{
+  background-color: var(--red05);
+}
+.error-text-color{
+  color: var(--red60);
+}

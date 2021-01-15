@@ -1,0 +1,27 @@
+
+$elevations : (
+  "elevation0": 0px 0px 0px rgba(var(--grey100rgb), 0),
+  "elevation1" : 0px 0px 0px rgba(var(--grey100rgb), 0),
+  "elevation2" : 0px 2px 8px rgba(var(--grey100rgb), .3),
+  "elevation4" : 0px 4px 10px rgba(var(--grey100rgb), .4),
+  "elevation6" : 0px 6px 15px rgba(var(--grey100rgb), .4),
+  "elevation8" : 0px 10px 20px rgba(var(--grey100rgb), .4),
+  "elevation10" : 0px 12px 25px rgba(var(--grey100rgb), .4),
+  "elevation12" : 0px 14px 25px rgba(var(--grey100rgb), .4),
+  "elevation14" : 0px 16px 30px rgba(var(--grey100rgb), .4),
+  "elevation16" : 0px 16px 35px rgba(var(--grey100rgb), .4)
+
+);
+
+:root {
+  @each $key, $value in $elevations {
+      --#{$key} : #{$value};
+  }
+}
+
+@each $key, $value in $elevations {
+  .#{$key} {
+    box-shadow: #{$value};
+    // @include animation(box-shadow);
+  }
+}

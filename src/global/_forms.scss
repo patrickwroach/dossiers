@@ -1,0 +1,103 @@
+.form,
+form {
+  .field-container {
+    width: 100%;
+    position: relative;
+    overflow: visible;
+    margin-bottom: 36px;
+  }
+  .field {
+    position: relative;
+    .leading,
+    .trailing {
+      width: 16px;
+      height: 16px;
+      padding: 4px 0px;
+      position: absolute;
+      bottom: 12px;
+      box-sizing: content-box;
+      @include animation(padding);
+    }
+    .trailing {
+      right: 0px;
+    }
+    .leading {
+      left: 0;
+      &:before {
+        width: 2px;
+        height: 18px;
+        position: absolute;
+        left: 0px;
+        content: "";
+        background: transparent;
+        @include animation(background-color);
+      }
+    }
+  }
+
+  label {
+    @extend .text-callout2;
+    @extend .text-tertiary;
+    display: block;
+  }
+
+  input {
+    width: 100%;
+    position: relative;
+    @extend .text-body1;
+    font-weight: $fw-bold;
+    border: 2px solid var(--grey100);
+    background-color: transparent;
+    padding: 8px 0px;
+    @include animation(padding);
+    &::placeholder {
+      @extend .text-tertiary;
+    }
+    &:focus {
+      outline: none;
+      padding: 8px;
+      &::placeholder {
+        color: transparent;
+      }
+    }
+  }
+
+  // when input is focused
+  .field:focus-within {
+    .leading {
+      &.icon {
+        padding-left: 4px;
+      }
+      &:before {
+        background: rgba(var(--grey100rgb), 0.3);
+      }
+    }
+  }
+
+  // when input includes and icon
+  .leading.icon + input {
+    padding-left: 24px;
+  }
+
+  //error
+  .hint {
+    @extend .text-caption;
+    position: relative;
+    top: 100%;
+    padding-top: 4px;
+    display: block;
+  }
+
+  .error {
+    input {
+      @extend .error-text-color;
+      border-bottom: 2px solid var(--errorTextColor);
+    }
+  }
+
+  button,
+  .button {
+    margin: 1rem 0;
+    width: 100%;
+  }
+}

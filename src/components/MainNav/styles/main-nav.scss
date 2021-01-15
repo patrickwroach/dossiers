@@ -1,0 +1,5 @@
+.main-nav {
+  @include spacing(padding, 5);
+  box-sizing: border-box;
+  text-align: left;
+}

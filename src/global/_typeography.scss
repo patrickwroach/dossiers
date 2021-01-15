@@ -1,0 +1,190 @@
+@function calculateRem($size) {
+  //Default font size on html element is 100%, equivalent to 16px;
+  @return $size / $bodySize * 1rem;
+}
+
+$fw-thin: 100;
+$fw-extralight: 200;
+$fw-light: 300;
+$fw-regular: 400;
+$fw-medium: 700;
+$fw-bold: 800;
+$fw-black: 900;
+$bodySize: 16px;
+
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+:root {
+  --font-brand: "Lato", sans-serif;
+  --font-default: "Lato", sans-serif;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.text-primary {
+  color: rgba(var(--grey100rgb), 0.95);
+}
+
+.text-secondary {
+  color: rrgba(var(--grey100rgb), 0.8);
+}
+
+.text-tertiary {
+  color: rgba(var(--grey100rgb), 0.6);
+}
+
+.text-inactive {
+  color: rgba(var(--grey100rgb), 0.3);
+}
+
+@mixin text-display1 {
+  font-family: var(--font-brand);
+  font-weight: $fw-bold;
+  font-size: calculateRem(36px);
+  line-height: calculateRem(48px);
+  letter-spacing: calculateRem(0.2px);
+}
+.text-display1,
+h1 {
+  @include text-display1;
+}
+
+@mixin text-display2 {
+  font-family: var(--font-brand);
+  font-weight: $fw-bold;
+  font-size: calculateRem(32px);
+  line-height: calculateRem(40px);
+  letter-spacing: calculateRem(0.2px);
+}
+.text-display2,
+h2 {
+  @include text-display2;
+}
+
+@mixin text-headline1 {
+  font-family: var(--font-brand);
+  font-weight: $fw-bold;
+  font-size: calculateRem(24px);
+  line-height: calculateRem(32px);
+  letter-spacing: calculateRem(0.2px);
+}
+.text-headline1,
+h3 {
+  @include text-headline1();
+}
+
+@mixin text-headline2 {
+  font-family: var(--font-brand);
+  font-weight: $fw-bold;
+  font-size: calculateRem(20px);
+  line-height: calculateRem(28px);
+  letter-spacing: calculateRem(0.2px);
+}
+.text-headline2,
+h4 {
+  @include text-headline2;
+}
+
+@mixin text-headline3 {
+  font-family: var(--font-brand);
+  font-weight: $fw-bold;
+  font-size: calculateRem(16px);
+  line-height: calculateRem(24px);
+  letter-spacing: calculateRem(0.2px);
+}
+.text-headline3,
+h5 {
+  @include text-headline3;
+}
+
+@mixin text-body1 {
+  font-family: var(--font-default);
+  font-weight: $fw-regular;
+  font-size: calculateRem(16px);
+  line-height: calculateRem(24px);
+  letter-spacing: calculateRem(0px);
+}
+.text-body1 {
+  @include text-body1;
+}
+
+@mixin text-body2 {
+  font-family: var(--font-default);
+  font-weight: $fw-regular;
+  font-size: calculateRem(14px);
+  line-height: calculateRem(20px);
+  letter-spacing: calculateRem(0px);
+}
+.text-body2 {
+  @include text-body2;
+}
+
+@mixin text-body3 {
+  font-family: var(--font-default);
+  font-weight: $fw-regular;
+  font-size: calculateRem(12px);
+  line-height: calculateRem(16px);
+  letter-spacing: calculateRem(0px);
+}
+.text-body3 {
+  @include text-body3;
+}
+
+@mixin text-body4 {
+  font-family: var(--font-default);
+  font-weight: $fw-bold;
+  font-size: calculateRem(12px);
+  line-height: calculateRem(16px);
+  letter-spacing: calculateRem(0px);
+}
+.text-body4 {
+  @include text-body4;
+}
+
+@mixin text-callout1 {
+  font-family: var(--font-default);
+  font-weight: $fw-regular;
+  font-size: calculateRem(14px);
+  line-height: calculateRem(16px);
+  letter-spacing: calculateRem(1px);
+  text-transform: uppercase;
+}
+.text-callout1 {
+  @include text-callout1;
+}
+
+@mixin text-callout2 {
+  font-family: var(--font-default);
+  font-weight: $fw-regular;
+  font-size: calculateRem(12px);
+  line-height: calculateRem(16px);
+  letter-spacing: calculateRem(1px);
+  text-transform: uppercase;
+}
+.text-callout2 {
+  @include text-callout2;
+}
+
+@mixin text-caption {
+  font-family: var(--font-default);
+  font-weight: $fw-medium;
+  font-size: calculateRem(10px);
+  line-height: calculateRem(12px);
+  letter-spacing: calculateRem(0px);
+}
+.text-caption {
+  @include text-caption;
+}
+
+@mixin text-button {
+  font-family: var(--font-default);
+  font-weight: $fw-bold;
+  font-size: calculateRem(16px);
+  line-height: calculateRem(20px);
+  letter-spacing: calculateRem(0px);
+}
+.text-button {
+  @include text-button;
+}

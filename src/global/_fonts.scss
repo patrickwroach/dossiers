@@ -1,0 +1,143 @@
+@function calculateRem($size) {
+  //Default font size on html element is 100%, equivalent to 16px;
+  @return $size / $bodySize  * 1rem;
+}
+$fw-thin: 100;
+$fw-extralight: 200;
+$fw-light: 300;
+$fw-regular: 400;
+$fw-medium: 700;
+$fw-bold: 800;
+$fw-black: 900;
+$bodySize: 16px;
+
+@font-face {
+  font-family: 'XfinityStandard';
+  src: url(https://static.cimcontent.net/common-web-assets/fonts/xfinity-standard-optimized/xfinitystandard-bold.woff) format("woff");
+  font-weight: $fw-bold;
+}
+@font-face {
+  font-family: 'XfinityStandard';
+  src: url(https://static.cimcontent.net/common-web-assets/fonts/xfinity-standard-optimized/xfinitystandard-medium.woff) format("woff");
+  font-weight: $fw-medium;
+}
+@font-face {
+  font-family: 'XfinityStandard';
+  src: url(https://static.cimcontent.net/common-web-assets/fonts/xfinity-standard-optimized/xfinitystandard-regular.woff) format("woff");
+  font-weight: $fw-regular;
+}
+@font-face {
+  font-family: 'XfinityBrown';
+  src: url(https://static.cimcontent.net/common-web-assets/fonts/xfinity-brown-optimized/xfinitybrown-bold.woff) format("woff");
+  font-weight: $fw-bold;
+}
+
+:root {
+  --font-brand: "XfinityBrown", "Helvetica", "Arial", "sans-serif";
+  --font-default: "XfinityStandard", "Helvetica", "Arial", "sans-serif";
+}
+
+em, i, .italic {
+  font-style: italic;
+}
+
+.text-display1,h1 {
+    font-family: var(--font-brand);
+    font-weight: $fw-bold;
+    font-size: calculateRem(36px);
+    line-height: calculateRem(48px);
+    letter-spacing: calculateRem(.2px);
+}
+.text-display2,h2{
+    font-family: var(--font-brand);
+    font-weight: $fw-bold;
+    font-size: calculateRem(32px);
+    line-height: calculateRem(40px);
+    letter-spacing: calculateRem(.2px);
+}
+.text-headline1,h3{
+    font-family: var(--font-brand);
+    font-weight: $fw-bold;
+    font-size: calculateRem(24px);
+    line-height: calculateRem(32px);
+    letter-spacing: calculateRem(.2px);
+}
+.text-headline2,h4{
+    font-family: var(--font-brand);
+    font-weight: $fw-bold;
+    font-size: calculateRem(20px);
+    line-height: calculateRem(28px);
+    letter-spacing: calculateRem(.2px);
+}
+.text-headline3,h5{
+    font-family: var(--font-brand);
+    font-weight: $fw-bold;
+    font-size: calculateRem(16px);
+    line-height: calculateRem(24px);
+    letter-spacing: calculateRem(.2px);
+}
+.text-body1,body{
+    font-family: var(--font-default);
+    font-weight: $fw-regular;
+    font-size: calculateRem(16px);
+    line-height: calculateRem(24px);
+    letter-spacing: calculateRem(0px);
+}
+.text-body2{
+    font-family: var(--font-default);
+    font-weight: $fw-regular;
+    font-size: calculateRem(14px);
+    line-height: calculateRem(20px);
+    letter-spacing: calculateRem(0px);
+}
+.text-body3{
+    font-family: var(--font-default);
+    font-weight: $fw-regular;
+    font-size: calculateRem(12px);
+    line-height: calculateRem(16px);
+    letter-spacing: calculateRem(0px);
+}
+.text-body4{
+    font-family: var(--font-default);
+    font-weight: $fw-bold;
+    font-size: calculateRem(12px);
+    line-height: calculateRem(16px);
+    letter-spacing: calculateRem(0px);
+}
+.text-callout1{
+    font-family: var(--font-default);
+    font-weight: $fw-regular;
+    font-size: calculateRem(14px);
+    line-height: calculateRem(16px);
+    letter-spacing: calculateRem(1px);
+    text-transform: uppercase;
+}
+.text-callout2{
+    font-family: var(--font-default);
+    font-weight: $fw-regular;
+    font-size: calculateRem(12px);
+    line-height: calculateRem(16px);
+    letter-spacing: calculateRem(1px);
+    text-transform: uppercase;
+}
+.text-caption{
+    font-family: var(--font-default);
+    font-weight: $fw-medium;
+    font-size: calculateRem(10px);
+    line-height: calculateRem(12px);
+    letter-spacing: calculateRem(0px);
+}
+.text-button {
+    font-family: var(--font-default);
+    font-weight: $fw-bold;
+    font-size: calculateRem(14px);
+    line-height: calculateRem(20px);
+    letter-spacing: calculateRem(-0.2px);
+}
+
+*{
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+

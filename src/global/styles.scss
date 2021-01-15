@@ -1,0 +1,311 @@
+@import "reset.scss";
+@import "_animation";
+@import "_breakpoints";
+@import "_spacing";
+
+@import "_cornerradius";
+@import "_colors";
+@import "_elevation";
+
+@import "_typeography";
+@import "_fonts";
+@import "_buttons";
+@import "_forms";
+
+:root {
+  --text-base: var(--grey100);
+  --text-opacity: 0.95;
+  --gradient-base: rgb(var(--grey100));
+  --gradient-base2: rgb(var(--grey100));
+}
+.material {
+  /* Neutral */
+  --material-base: rgb(var(--blue50));
+  --text-base: var(--grey100);
+}
+
+.material-red {
+  --material-base: rgb(var(--red05));
+  --text-base: var(--red60);
+}
+.material-black {
+  --material-base: rgb(var(--grey70));
+  --text-base: var(--grey00);
+}
+.material-blue {
+  --material-base: rgb(var(--blue05));
+  --text-base: var(--blue60);
+}
+
+.material-green {
+  --material-base: rgb(var(--green05));
+  --text-base: var(--green60);
+}
+
+.material-purple {
+  --material-base: rgb(var(--purple05));
+  --text-base: var(--purple60);
+}
+
+.material-yellow {
+  --material-base: rgb(var(--yellow05));
+  --text-base: var(--yellow60);
+}
+
+.material-orange {
+  --material-base: rgb(var(--orange10));
+  --text-base: var(--orange70);
+}
+
+.material {
+  background-color: var(--material-base);
+  color: rgba(var(--text-base), var(--text-opacity));
+}
+
+.material-inverse {
+  background-color: rgba(var(--text-base), 1);
+  color: rgba(var(--material-base), var(--text-opacity));
+}
+
+.stroke {
+  --stroke-base: rgb(var(--grey70));
+  --text-base: var(--grey100);
+}
+
+.stroke-interactive {
+  --stroke-hover: rgb(var(--grey90));
+  --stroke-down: rgb(var(--grey100));
+}
+
+.stroke-red {
+  --stroke-base: rgb(var(--red50));
+  --stroke-hover: rgb(var(--red60));
+  --stroke-down: rgb(var(--red70));
+  --text-base: var(--red60);
+}
+
+.stroke-blue {
+  --stroke-base: rgb(var(--blue50));
+  --stroke-hover: rgb(var(--blue60));
+  --stroke-down: rgb(var(--blue70));
+  --text-base: var(--blue60);
+}
+
+.stroke-green {
+  --stroke-base: rgb(var(--green50));
+  --stroke-hover: rgb(var(--green60));
+  --stroke-down: rgb(var(--green70));
+  --text-base: var(--green60);
+}
+
+.stroke-yellow {
+  --stroke-base: rgb(var(--yellow50));
+  --stroke-hover: rgb(var(--yellow60));
+  --stroke-down: rgb(var(--yellow70));
+  --text-base: var(--yellow60);
+}
+
+.stroke-orange {
+  --stroke-base: rgb(var(--orange50));
+  --stroke-hover: rgb(var(--orange60));
+  --stroke-down: rgb(var(--orange70));
+  --text-base: var(--orange60);
+}
+
+.stroke-purple {
+  --stroke-base: rgb(var(--purple50));
+  --stroke-hover: rgb(var(--purple60));
+  --stroke-down: rgb(var(--purple70));
+  --text-base: var(--purple60);
+}
+
+.fill {
+  --fill-base: rgb(var(--grey70));
+  --text-base: var(--grey00);
+}
+
+.fill-interactive {
+  --fill-hover: rgb(var(--grey90));
+  --fill-down: rgb(var(--grey100));
+}
+
+.fill-red {
+  --fill-base: rgb(var(--red40));
+  --fill-hover: rgb(var(--red70));
+  --fill-down: rgb(var(--red80));
+  --text-base: var(--grey00);
+}
+
+.fill-blue {
+  --fill-base: rgb(var(--blue40));
+  --fill-hover: rgb(var(--blue70));
+  --fill-down: rgb(var(--blue80));
+  --text-base: var(--grey00);
+}
+
+.fill-green {
+  --fill-base: rgb(var(--green40));
+  --fill-hover: rgb(var(--green70));
+  --fill-down: rgb(var(--green80));
+  --text-base: var(--grey00);
+}
+
+.fill-yellow {
+  --fill-base: rgb(var(--yellow40));
+  --fill-hover: rgb(var(--yellow70));
+  --fill-down: rgb(var(--yellow80));
+  --text-base: var(--grey00);
+}
+
+.fill-orange {
+  --fill-base: rgb(var(--orange40));
+  --fill-hover: rgb(var(--orange70));
+  --fill-down: rgb(var(--orange80));
+  --text-base: var(--grey00);
+}
+
+.fill-purple {
+  --fill-base: rgb(var(--purple40));
+  --fill-hover: rgb(var(--purple70));
+  --fill-down: rgb(var(--purple80));
+  --text-base: var(--grey00);
+}
+
+.fill {
+  background-color: var(--fill-base);
+}
+
+.fill-interactive:hover {
+  background-color: var(--fill-hover);
+}
+
+.fill-interactive:focus {
+  background-color: var(--fill-hover);
+}
+
+.fill-interactive:active {
+  background-color: var(--fill-down);
+}
+
+.text-primary {
+  --text-opacity: 0.95;
+}
+
+.text-secondary {
+  --text-opacity: 0.75;
+}
+
+.text-tertiary {
+  --text-opacity: 0.45;
+}
+
+.text-green {
+  --text-base: var(--green60);
+}
+
+.text-red {
+  --text-base: var(--red60);
+}
+
+.text-yellow {
+  --text-base: var(--yellow60);
+}
+
+.text-purple {
+  --text-base: var(--purple60);
+}
+
+.text-orange {
+  --text-base: var(--orange60);
+}
+
+.stroke {
+  border-color: var(--stroke-base);
+}
+
+.stroke-interactive:hover {
+  --text-base: var(--grey00);
+  border-color: var(--stroke-base);
+  background-color: var(--stroke-base);
+}
+
+.stroke-interactive:focus {
+  --text-base: var(--grey00);
+  border-color: var(--stroke-hover);
+  background-color: var(--stroke-base);
+}
+
+.stroke-interactive:active {
+  border-color: var(--stroke-down);
+}
+
+.gradient {
+  /* Neutral */
+  --gradient-base: rgb(var(--grey00));
+  --gradient-base2: rgb(var(--grey30));
+  --text-base: var(--grey00);
+}
+
+.gradient-red {
+  --gradient-base: rgb(var(--red40));
+  --gradient-base2: rgb(var(--red60));
+}
+
+.gradient-blue {
+  --gradient-base: rgb(var(--blue40));
+  --gradient-base2: rgb(var(--blue60));
+}
+
+.gradient-green {
+  --gradient-base: rgb(var(--green40));
+  --gradient-base2: rgb(var(--green60));
+}
+
+.gradient-purple {
+  --gradient-base: rgb(var(--purple40));
+  --gradient-base2: rgb(var(--purple60));
+}
+
+.gradient-yellow {
+  --gradient-base: rgb(var(--yellow40));
+  --gradient-base2: rgb(var(--yellow60));
+}
+
+.gradient-orange {
+  --gradient-base: rgb(var(--orange40));
+  --gradient-base2: rgb(var(--orange60));
+}
+
+.gradient {
+  background: linear-gradient(
+    180deg,
+    (var(--gradient-base)) 0%,
+    (var(--gradient-base2)) 100%
+  );
+  color: rgba(var(--text-base), var(--text-opacity));
+  --text-base: var(--grey00);
+}
+
+.text {
+  color: rgba(var(--text-base), var(--text-opacity));
+}
+body,
+root {
+  height: 100%;
+}
+.App {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-color: var(--grey05);
+  @extend .text-body1;
+  @extend .text-primary;
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  flex: 1;
+  @include spacing(padding, 3);
+  text-align: left;
+}

@@ -1,0 +1,122 @@
+.button {
+  text-decoration: none;
+  $borderWidth: 2px;
+  position: relative;
+  cursor: pointer;
+  margin:10px;
+  background: none;
+  border: $borderWidth solid var(--grey100);
+  display: inline-block;
+  @extend .text-button;
+  @extend .radius-small;
+  @extend .elevation0;
+  @extend .radius-small;
+  @include spacing('padding-left', 6);
+  @include spacing('padding-right', 6);
+  @include spacing('padding-top', 3);
+  @include spacing('padding-bottom', 3);
+  @include animation(background-color, box-shadow);
+  color: rgba(var(--grey00), .96);
+  &:before{
+    $borderGap: 6px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    content: "";
+    top:-$borderGap - $borderWidth;
+    left: -$borderGap - $borderWidth;
+    padding: $borderGap;
+    @include animation(border);
+    border: $borderWidth solid rgba(var(--grey100rgb), 0);
+    @extend .radius-medium;
+    z-index: -1;
+  }
+
+  &:hover{
+    @extend .elevation8;
+  }
+  &:active{
+    @extend .elevation2;
+  }
+  &:focus{
+    @extend .elevation2;
+    outline: none;
+    &:before{
+      border: $borderWidth solid rgba(var(--grey100rgb), .3);
+    }
+  }
+  &:visited{
+    @extend .elevation0;
+    color: rgba(var(--grey100rgb), 100);
+
+  }
+  &.priority{
+    @extend .elevation4;
+  }
+  &.primary{
+    background: var(--grey100);
+    color: rgba(var(--grey00rgb), .96);
+
+  }
+  &.inactive{
+    &.primary{
+      background-color:rgba(var(--grey100rgb), .16);
+      border: none;
+    }
+    cursor: default;
+    @extend .elevation0;
+    border: $borderWidth solid rgba(var(--grey100rgb), .3);
+    color: rgba(var(--grey100rgb), .3);
+    &:hover{
+      @extend .elevation0;
+    }
+    &:active{
+      @extend .elevation0;
+    }
+    &:focus{
+      @extend .elevation0;
+      &:before{
+        border: $borderWidth solid rgba(var(--grey100rgb), 0);
+      }
+    }
+  }
+  &.no-margin {
+    margin: 0;
+  }
+}
+
+.link {
+  text-decoration: none;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(var(--grey100rgb), .3);
+  @extend .text-primary;
+  @include animation(border, color);
+  &:hover{
+    border-bottom: 1px solid rgba(var(--grey100rgb), 1);
+  }
+  &:focus{
+    border-bottom: 1px solid rgba(var(--grey100rgb), 1);
+    outline: none;
+    background: transparent;
+  }
+  &:active{
+    border-bottom: 1px solid rgba(var(--grey100rgb), .3);
+  }
+  &.inactive{
+    color: rgba(var(--grey100rgb), .3);
+    border-bottom: 1px solid rgba(var(--grey100rgb), .3);
+    cursor: default;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+
+.disabled {
+  cursor: none;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
