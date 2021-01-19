@@ -11,7 +11,7 @@ function App() {
         <h1>This is a heading</h1>
         <h2>This is a subheading</h2>
         <p> Here is some text in a paragraph</p>
-        <button class="button material material-black">I am a pointless button</button>
+        <button onClick={() => { alert("I said I was pointless") }} class="button material material-black">I am a pointless button</button>
         <form class="form">
           <p> This is a form </p>
           <input class="input " placeholder="An input"></input>
