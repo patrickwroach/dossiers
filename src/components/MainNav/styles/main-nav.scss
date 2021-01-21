@@ -1,5 +1,14 @@
 .main-nav {
   @include spacing(padding, 5);
+  padding-left: 5%;
+  padding-right: 5%;
   box-sizing: border-box;
   text-align: left;
+  display: flex;
+  vertical-align: center;
+  justify-content: space-between;
+  a {
+    color: white;
+    text-decoration: none;
+  }
 }

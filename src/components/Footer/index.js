@@ -1,6 +1,6 @@
 const Footer = () => (
-    <footer class="footer material material-black">
-        by Pat
+    <footer className="footer material material-black">
+        by me
     </footer>
 )
 export default Footer

@@ -306,6 +306,6 @@ root {
 
 .content {
   flex: 1;
-  @include spacing(padding, 3);
+  padding: 1rem 10%;
   text-align: left;
 }

@@ -1,24 +1,41 @@
-
 import './App.css';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import Footer from './components/Footer';
 import MainNav from './components/MainNav';
+import Home from './components/home';
+import Listing from './components/Listing';
+import { useState, useEffect } from 'react';
+
+
+import { getFriends } from './firebase/firebaseActions';
+
 
 function App() {
+
+  const [friendData, setFriendData] = useState(getFriends());
+  useEffect(() => {
+    setFriendData(getFriends())
+  },
+    []
+  )
+
+
   return (
-    <div className="App">
-      <MainNav />
-      <div class="content">
-        <h1>This is a heading</h1>
-        <h2>This is a subheading</h2>
-        <p> Here is some text in a paragraph</p>
-        <button onClick={() => { alert("I said I was pointless") }} class="button material material-black">I am a pointless button</button>
-        <form class="form">
-          <p> This is a form </p>
-          <input class="input " placeholder="An input"></input>
-        </form>
+    <Router>
+      <div className="App">
+        <MainNav />
+        <div className="content">
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/listing" render={() => <Listing friendData={friendData} setFriendData={setFriendData} />} />
+          </Switch>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </Router>
+
+
   );
 }
 
