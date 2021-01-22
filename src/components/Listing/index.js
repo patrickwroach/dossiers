@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
-import { asyncGetFriends, addFriend, getFriends } from '../../firebase/firebaseActions';
+import { asyncGetFriends, addFriend, deleteFriend } from '../../firebase/firebaseActions';
 
 const Listing = ({ friendData, setFriendData, }) => /**/ {
-  const [newFriend, setNewFriend] = useState({});
+  const defaultState = {
+    firstName:"first-name",
+    lastName:"last-name"
+  }
+  const [newFriend, setNewFriend] = useState(defaultState);
   
   const inputToState = (e) => {
     let toAddToState = newFriend;
@@ -10,58 +14,56 @@ const Listing = ({ friendData, setFriendData, }) => /**/ {
     setNewFriend(toAddToState);
   }
   
-  function makeid(length) {
-    var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  }
-  
-  const addAndUpdateFriend = () => {
-
-   console.log("new bud", newFriend)
-   addFriend(newFriend.firstName, newFriend.lastName);
-  
+  const refreshFriends = () => {
     (async () => {
       const friends = await asyncGetFriends();
-      setFriendData(friends);
-    })(); 
+      setFriendData(friends);  
+    })()
+  }
+  
+  const addFriendRefreshList = () => {
+    if (newFriend.firstName && newFriend.lastName) {
+    addFriend(newFriend.firstName, newFriend.lastName);
+    const firstNameInput =  document.getElementById("first-name-input");
+    firstNameInput.value =  firstNameInput.placeholder
+    const lastNameInput =  document.getElementById("last-name-input");
+    lastNameInput.value =  lastNameInput.placeholder
+    setNewFriend({defaultState});
+    setTimeout(refreshFriends, 100)
+    } else {
+      alert("Your friend needs a first and last name")
+    }
+    
+
   };
-  //
-  // const listfriendData = () => {
-  //   console.log('checking on list');
-  //   let compiledList = 'Waiting on list friendData';
-  //   console.log(friendData);
-  //   if (friendData) {
-  //     console.log('i got em');
-  //     compiledList = loadedfriendData.map((item, i) => {
-  //       return <li key={item.id}>{item.firstName}</li>;
-  //     });
-  //   }
-  //   return compiledList;
-  // };
+
+  const removeFriendRefreshList = (id) => {
+    deleteFriend(id);
+    setTimeout(refreshFriends, 100)
+  }
+
   
   const renderFriendsList = () => (
     friendData.map((friend, i) => (
-      <li key={i}>
-        {friend.id}
+      <li key={friend.id}>
+        {friend.lastName}, {friend.firstName}
+        <button className="button material material-black" onClick={()=>{removeFriendRefreshList(friend.id)}}>X</button>
       </li>
     ))
   )
   
+
   
   return (
     <>
       <h1>Friends</h1>
-
+   
       <h2>Add a Friend</h2>
-        <input id="first-name-input" type="text" name="firstName" placeholder="first name" onChange={(e)=>{inputToState(e)}}/>
-        <input id="last-name-input" type="text" name="lastName" placeholder="last name" onChange={(e)=>{inputToState(e)}} />
-        <button onClick={()=>{addAndUpdateFriend()}}>Add 'em</button>
-
+        <input type="text" id="first-name-input" name="firstName" placeholder="first name" onChange={(e)=>{inputToState(e)}} onFocus={(e)=>{e.target.value=""}}/>
+        <input type="text" id="last-name-input" name="lastName" placeholder="last name" onChange={(e)=>{inputToState(e)}} onFocus={(e)=>{e.target.value=""}} />
+        <button onClick={()=>{addFriendRefreshList()}}>Add 'em</button>
+  
+  
       <h2>All Friends</h2>
       <ul>
         { renderFriendsList() }

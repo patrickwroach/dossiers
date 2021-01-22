@@ -23,6 +23,10 @@ const addFriend = (firstName, lastName) => {
   });
 };
 
+const deleteFriend = (id) =>{
+  db.collection("friends").doc(id).delete()
+}
+
 const getFriends = () => {
   let allFriends = [];
   db.collection('friends').get().then(function (querySnapshot) {
@@ -38,6 +42,7 @@ const getFriends = () => {
   return allFriends;
 };
 
+
 const asyncGetFriends = async () => {
   const { docs } = await db.collection('friends').get();
   return docs.map((friend) => ({
@@ -46,4 +51,4 @@ const asyncGetFriends = async () => {
   }));
 }
 
-export { db, getFriends, addFriend, asyncGetFriends };
+export { db, getFriends, addFriend, asyncGetFriends, deleteFriend };
