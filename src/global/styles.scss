@@ -20,18 +20,20 @@
 }
 .material {
   /* Neutral */
-  --material-base: rgb(var(--blue50));
-  --text-base: var(--grey100);
+  --material-base: rgb(var(--grey10));
+  --text-base: var(--grey70);
 }
 
 .material-red {
   --material-base: rgb(var(--red05));
   --text-base: var(--red60);
 }
+
 .material-black {
   --material-base: rgb(var(--grey70));
   --text-base: var(--grey00);
 }
+
 .material-blue {
   --material-base: rgb(var(--blue05));
   --text-base: var(--blue60);
@@ -307,5 +309,9 @@ root {
 .content {
   flex: 1;
   padding: 1rem 10%;
+  min-width: 250px;
   text-align: left;
+  @media only screen and (max-width: 600px) { 
+   padding: 1rem;
+  }
 }

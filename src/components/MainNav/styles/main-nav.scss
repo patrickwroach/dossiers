@@ -5,7 +5,8 @@
   box-sizing: border-box;
   text-align: left;
   display: flex;
-  vertical-align: center;
+  width: 100%;
+  align-items: center;
   justify-content: space-between;
   a {
     color: white;

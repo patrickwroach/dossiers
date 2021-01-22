@@ -1,0 +1,51 @@
+.listing {
+    &_form {
+        display: flex;
+        margin: 0 auto;
+        min-width: 300px;
+        max-width: 600px;
+        width: 60%;
+        justify-content: space-between;
+        @media only screen and (max-width: 600px) { 
+            display: block;
+        }
+    }
+
+    &_input {
+        @include spacing(margin, 1);
+        display: block;
+        width: 90%;
+    }
+
+    &_inputs-wrapper {
+        flex: 1 1 auto;
+    }
+    &_subheading {
+        @include spacing(margin, 3);
+        text-align: center;
+
+    }
+    &_friends {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr[col-start]);
+        justify-content: space-between;
+        @media only screen and (max-width: 600px) { 
+            display: block;
+        }
+    }
+    
+    &_friend {
+        @include spacing(margin, 2);
+        @include spacing(padding, 1);
+        align-items: center;
+        border-bottom: 1px solid black; 
+        display:flex;
+        justify-content: space-between;
+
+        &-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height:50px;
+        }
+    }
+}
