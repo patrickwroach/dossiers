@@ -33,27 +33,17 @@ const getFriends = () => {
     
     querySnapshot.forEach(function (doc) {
       let aFriend = doc.data();
+      console.log(aFriend)
+      if(aFriend.favoriteFoods){
+      }
       aFriend.id = doc.id;
-      allFriends.push(aFriend);
-      
+      allFriends.push(aFriend); 
     });
+
     
   });
   return allFriends;
 };
-
-//do this cleaner later
-const getAFriend =  async(id) => {
-  const { docs } = await db.collection('friends').get();
-  const allFriends =  docs.map((friend) => ({
-    ...friend.data(),
-    id: friend.id,
-  }));
-  const result = allFriends.filter(friend => {
-    return friend.id === id
-  })
-  return result
-} 
 
 
 
@@ -65,4 +55,5 @@ const asyncGetFriends = async () => {
   }));
 }
 
-export { db, getFriends, getAFriend, addFriend, asyncGetFriends, deleteFriend };
+
+export { db, getFriends, addFriend, asyncGetFriends, deleteFriend  };

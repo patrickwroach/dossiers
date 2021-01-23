@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { asyncGetFriends, addFriend, deleteFriend, getAFriend } from '../../firebase/firebaseActions';
+import { asyncGetFriends, addFriend,  deleteFriend  } from '../../firebase/firebaseActions';
 
 import FriendDashboard from './components/friend-dashboard'
 import Modal from '../Modal'
@@ -11,7 +11,6 @@ const Listing = ({ friendData, setFriendData, }) => /**/ {
     firstName: "first-name",
     lastName: "last-name"
   }
-
   const defaultActiveFriend = {
     id:"",
     modalOpen:false
@@ -55,15 +54,22 @@ const Listing = ({ friendData, setFriendData, }) => /**/ {
   }
 
   const openFriendDetails = (id)=>{
-
-    setActiveFriend(() => {
-      (async () => {
-        const friend = await getAFriend(id);
-        setActiveFriend({...friend[0], modalOpen:true});
-      })()})
-   
+    const friend = friendData.filter(friend => {
+      return friend.id === id
+        }  )
+    friend[0].modalOpen = true
+    setActiveFriend(...friend);
   }
 
+  const whoMyOnionBois =   friendData.filter(friend => {
+     
+      if(friend.favoriteFoods){
+        return friend.favoriteFoods.includes("onion")
+      }else {
+        return null;
+      }  
+    })
+ console.log(whoMyOnionBois)
 
   const renderFriendsList = () => (
     friendData.map((friend, i) => (
@@ -75,8 +81,6 @@ const Listing = ({ friendData, setFriendData, }) => /**/ {
       </li>
     ))
   )
-
-
 
   return (
     <>

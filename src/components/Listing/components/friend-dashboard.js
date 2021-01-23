@@ -1,6 +1,5 @@
-import { getAFriend } from '../../../firebase/firebaseActions';
-
 const FriendDashboard = ({friend})=>{
+    console.log(friend)
     return(
     <>
         <h3>{friend.firstName} {friend.lastName}</h3>

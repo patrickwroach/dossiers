@@ -1,15 +1,30 @@
 .main-nav {
   @include spacing(padding, 5);
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
   padding-left: 5%;
   padding-right: 5%;
-  box-sizing: border-box;
   text-align: left;
-  display: flex;
   width: 100%;
-  align-items: center;
-  justify-content: space-between;
+
   a {
     color: white;
     text-decoration: none;
+  }
+
+  &_logo-wrapper {
+    align-items: center;
+    display: flex;
+    height: 50px;
+
+    .logo {
+      @include spacing(margin, 1);
+    }
+  }
+  &_app-name {
+    font-size: 25px;
+    font-weight: 100;
   }
 }
