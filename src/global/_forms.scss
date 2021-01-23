@@ -1,4 +1,5 @@
 input {
+  @extend .radius-small;
   width: 100%;
   position: relative;
   @extend .text-body1;

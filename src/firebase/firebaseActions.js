@@ -42,6 +42,20 @@ const getFriends = () => {
   return allFriends;
 };
 
+//do this cleaner later
+const getAFriend =  async(id) => {
+  const { docs } = await db.collection('friends').get();
+  const allFriends =  docs.map((friend) => ({
+    ...friend.data(),
+    id: friend.id,
+  }));
+  const result = allFriends.filter(friend => {
+    return friend.id === id
+  })
+  return result
+} 
+
+
 
 const asyncGetFriends = async () => {
   const { docs } = await db.collection('friends').get();
@@ -51,4 +65,4 @@ const asyncGetFriends = async () => {
   }));
 }
 
-export { db, getFriends, addFriend, asyncGetFriends, deleteFriend };
+export { db, getFriends, getAFriend, addFriend, asyncGetFriends, deleteFriend };

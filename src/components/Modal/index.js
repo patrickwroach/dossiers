@@ -6,9 +6,8 @@ const Portal = ({ children }) => {
 
     useEffect(() => {
         modalRoot.appendChild(el);
-    }, []);
+    });
     useEffect(() => {
-        console.log(modalRoot.childElementCount)
         return () => modalRoot.removeChild(el);
     });
     return createPortal(children, el);

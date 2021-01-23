@@ -1,12 +1,24 @@
 import { useState } from 'react';
-import { asyncGetFriends, addFriend, deleteFriend } from '../../firebase/firebaseActions';
+import { asyncGetFriends, addFriend, deleteFriend, getAFriend } from '../../firebase/firebaseActions';
+
+import FriendDashboard from './components/friend-dashboard'
+import Modal from '../Modal'
+
+
 
 const Listing = ({ friendData, setFriendData, }) => /**/ {
-  const defaultState = {
+  const defaultNewFriend = {
     firstName: "first-name",
     lastName: "last-name"
   }
-  const [newFriend, setNewFriend] = useState(defaultState);
+
+  const defaultActiveFriend = {
+    id:"",
+    modalOpen:false
+  }
+
+  const [newFriend, setNewFriend] = useState(defaultNewFriend);
+  const [activeFriend, setActiveFriend] = useState(defaultActiveFriend);
 
   const inputToState = (e) => {
     let toAddToState = newFriend;
@@ -28,7 +40,7 @@ const Listing = ({ friendData, setFriendData, }) => /**/ {
       firstNameInput.value = firstNameInput.placeholder
       const lastNameInput = document.getElementById("last-name-input");
       lastNameInput.value = lastNameInput.placeholder
-      setNewFriend({ defaultState });
+      setNewFriend({ defaultNewFriend });
       setTimeout(refreshFriends, 100)
     } else {
       alert("Your friend needs a first and last name")
@@ -42,14 +54,24 @@ const Listing = ({ friendData, setFriendData, }) => /**/ {
     setTimeout(refreshFriends, 100)
   }
 
+  const openFriendDetails = (id)=>{
+
+    setActiveFriend(() => {
+      (async () => {
+        const friend = await getAFriend(id);
+        setActiveFriend({...friend[0], modalOpen:true});
+      })()})
+   
+  }
+
 
   const renderFriendsList = () => (
     friendData.map((friend, i) => (
       <li key={friend.id} className="listing_friend">
-        <div class="listing_friend-name">
+        <button class="listing_friend-name button material" onClick={() => {openFriendDetails(friend.id)}}>
           {friend.lastName}, {friend.firstName}
-        </div>
-        <button className="button material material-black" onClick={() => { removeFriendRefreshList(friend.id) }}>X</button>
+        </button>
+        <button className="button material material-black" onClick={() => {removeFriendRefreshList(friend.id) }}>X</button>
       </li>
     ))
   )
@@ -73,6 +95,10 @@ const Listing = ({ friendData, setFriendData, }) => /**/ {
       <ul class="listing_friends">
         {renderFriendsList()}
       </ul>
+      {activeFriend && activeFriend.modalOpen ?
+            <Modal open={activeFriend.modalOpen} toggle={()=>{setActiveFriend(defaultActiveFriend)}}>
+               <FriendDashboard friend={activeFriend} />
+            </Modal> : "" }
     </>
   );
 

@@ -310,6 +310,7 @@ root {
   flex: 1;
   padding: 1rem 10%;
   min-width: 250px;
+  max-width: 1200px;
   text-align: left;
   @media only screen and (max-width: 600px) { 
    padding: 1rem;
