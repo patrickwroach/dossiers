@@ -61,15 +61,16 @@ const Listing = ({ friendData, setFriendData, }) => /**/ {
     setActiveFriend(...friend);
   }
 
-  const whoMyOnionBois =   friendData.filter(friend => {
-     
-      if(friend.favoriteFoods){
-        return friend.favoriteFoods.includes("onion")
+  const whoMyOnionBois=(category, preferenceId) => (  friendData.filter(friend => {
+  
+      if(friend[category]){
+        return friend[category].includes(preferenceId)
       }else {
         return null;
       }  
     })
- console.log(whoMyOnionBois)
+  )
+ //console.log(whoMyOnionBois("favoriteFoods", "onion"))
 
   const renderFriendsList = () => (
     friendData.map((friend, i) => (

@@ -1,4 +1,5 @@
 .listing {
+
     &_form {
         display: flex;
         margin: 0 auto;
@@ -9,12 +10,6 @@
         @media only screen and (max-width: 600px) { 
             display: block;
         }
-    }
-
-    &_input {
-        @include spacing(margin, 1);
-        display: block;
-        width: 90%;
     }
 
     &_inputs-wrapper {
@@ -54,4 +49,8 @@
             height:50px;
         }
     }
+    &_dashboard {
+    
+    }
+    
 }

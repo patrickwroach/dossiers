@@ -10,7 +10,9 @@
     }
     &_card {
     position: relative;
-    min-width: 320px;
+    min-width: 250px;
+    width: 60%;
+    max-width: 500px;
     z-index: 10;
     margin-bottom: 100px;
     background: white;

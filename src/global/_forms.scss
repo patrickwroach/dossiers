@@ -6,8 +6,11 @@ input {
   font-weight: $fw-bold;
   border: none;
   background-color: transparent;
-  padding: 8px;
+  @include spacing(padding, 2);
   @include animation(padding);
+  @include spacing(margin, 1);
+  display: block;
+  width: 90%;
   &::placeholder {
     @extend .text-tertiary;
   }
