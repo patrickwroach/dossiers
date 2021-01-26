@@ -4,9 +4,9 @@ import { addPreference } from '../../../firebase/firebaseActions';
 const FriendDashboard = ({friend})=>{
 
    const [newPreference, setNewPreference] = useState({})
+   const [selectedFriend, setSelectedFriend] = useState (friend);
 
-
-     //TODO: make this a blanket helper function 
+     //TODO: make some input to state blanket helper function, maybe a custom hook?
     const inputCategoryToState = (targetCategory) => {
     let toAddToState = newPreference;
     toAddToState.category = targetCategory;
@@ -19,7 +19,7 @@ const FriendDashboard = ({friend})=>{
     }
 
     const getCategories =()=>{
-        const categories = friend.responses;
+        const categories = selectedFriend.responses;
         const getItems = (targetCategory) => (
             categories[targetCategory].items.map((item, i) => (
              <input key={`${targetCategory}-input-${i}`} className="listing_dashboard_input material" placeholder={item}/>
@@ -28,22 +28,42 @@ const FriendDashboard = ({friend})=>{
             const elementsToClean = document.querySelector('.listing_dashboard_new-preference');
             if(elementsToClean){
                 elementsToClean.remove();
-                let cleanState =  newPreference;
-                cleanState.value = ""
-                cleanState.category = ""
-                setNewPreference(cleanState);
             }
         }
+        const cleanUpNewPreferenceState=()=>{
+            let cleanState =  newPreference;
+            cleanState.value = ""
+            cleanState.category = ""
+            setNewPreference(cleanState);
+        }
         const addPreferenceUpdateData =()=>{
-            //update backend
-            addPreference(newPreference, friend);
-            //updateFrontEnd 
-            const updatedFriend = friend;
+            //updateFrontEnd
+            //TODO : this is terribele need to refactor later
+            const updatedFriend = selectedFriend;
+            setSelectedFriend(updatedFriend)
+            const targetCategory = document.getElementById(`${newPreference.category}-inputs`);
+            let newField = document.createElement('input');
+            newField.className = "listing_dashboard_input material" 
+            newField.value =  newPreference.value;
+            targetCategory.appendChild(newField)
+            //update backend 
+            addPreference(newPreference, selectedFriend);
             updatedFriend.responses[newPreference.category].items.push(newPreference.value);
-            cleanUpNewPreferenceElements();
+          
+        }
+        const handleUpdateButton = async() => {  
+         cleanUpNewPreferenceElements()
+           let promise = new Promise((resolve, reject) => {
+            //TODO this is not stable, need to refactor
+            setTimeout(() => resolve("done!"), 1000)
+            addPreferenceUpdateData();
+          });
+          let result = await promise; // wait until the promise resolves (*)   
+          cleanUpNewPreferenceState(); // "done!"
+
         }
         const addField = (category) => {
-            //there has to be a better wayt to do this, maybe portals? 
+            //ToDO there has to be a better way to creat these elements, maybe portals? 
             cleanUpNewPreferenceElements(); 
             inputCategoryToState(category);
             const targetCategory = document.getElementById(`${category}-inputs`);
@@ -57,7 +77,7 @@ const FriendDashboard = ({friend})=>{
            
             let updateButton = document.createElement('button');
             updateButton.className = "listing_dashboard__new-preference_update-button button material material-black" 
-            updateButton.onclick = ()=>{addPreferenceUpdateData()}
+            updateButton.onclick = ()=>{handleUpdateButton()}
             updateButton.innerHTML = "save" 
 
             newFieldWrapper.appendChild(newInput)
@@ -69,16 +89,15 @@ const FriendDashboard = ({friend})=>{
              <div id={`${category}-inputs`} className="listing_dashboard_inputs-wrapper">
                  {getItems(category)}
              </div>
-            
-             <button className="button material material-black" onClick={()=>{addField(category)}}>+</button>
+            <button className="button material material-black" onClick={()=>{addField(category)}}>+</button>
             </div>
         )))
     }   
 
     return(
     <>
-        <h3>{friend.firstName} {friend.lastName}</h3>
-        {friend.responses ? getCategories() : ""}
+        <h3>{selectedFriend.firstName} {selectedFriend.lastName}</h3>
+        {selectedFriend.responses ? getCategories() : ""}
     </>
     )
 }

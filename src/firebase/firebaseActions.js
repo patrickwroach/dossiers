@@ -46,13 +46,13 @@ const addFriend = (firstName, lastName) => {
 };
 
 const addPreference = (newPreference, friend) => {
-  console.log("in action", newPreference, friend)
   //Add pref to Friend
   const friendDocId = `${friend.lastName}-${friend.firstName}`;
   var friendsRef = db.collection('friends');
   var friendDocRef = friendsRef.doc(friendDocId);
   friendDocRef.get().then(function (doc) {
-      friendsRef.doc(friendDocId).update({
+    console.log("debug" ,`responses.${newPreference.category}.items`)
+      friendsRef.doc(friendDocId).update({  
         [`responses.${newPreference.category}.items`]: firebase.firestore.FieldValue.arrayUnion(newPreference.value)
       });
   }).catch(function (error) {
@@ -66,15 +66,12 @@ const addPreference = (newPreference, friend) => {
     if (!doc.exists) {
         prefRef.doc(prefDocId).set({
         [`${newPreference.category}.items`]: blankResponses
-      });
-      prefRef.doc(prefDocId).update({
-        [`${newPreference.category}.items`]: firebase.firestore.FieldValue.arrayUnion(friendDocId)
-      });
-    } else {
-        prefRef.doc(prefDocId).update({
-        [`${newPreference.category}.items`]: firebase.firestore.FieldValue.arrayUnion(friendDocId)
-      });
-    } 
+      });}
+  
+    prefRef.doc(prefDocId).update({
+      [`${newPreference.category}.items`]: firebase.firestore.FieldValue.arrayUnion(friendDocId)
+    });
+  
     }).catch(function (error) {
       console.log('Error getting document:', error);
     });
