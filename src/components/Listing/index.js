@@ -19,6 +19,8 @@ const Listing = ({ friendData, setFriendData, }) => /**/ {
   const [newFriend, setNewFriend] = useState(defaultNewFriend);
   const [activeFriend, setActiveFriend] = useState(defaultActiveFriend);
 
+
+  //TODO: make this a blanket helper function 
   const inputToState = (e) => {
     let toAddToState = newFriend;
     toAddToState[e.target.name] = e.target.value;
@@ -33,7 +35,11 @@ const Listing = ({ friendData, setFriendData, }) => /**/ {
   }
 
   const addFriendRefreshList = () => {
-    if (newFriend.firstName && newFriend.lastName) {
+    if (newFriend.firstName && 
+        newFriend.lastName && 
+        newFriend !== defaultNewFriend
+        )
+         {
       addFriend(newFriend.firstName, newFriend.lastName);
       const firstNameInput = document.getElementById("first-name-input");
       firstNameInput.value = firstNameInput.placeholder
@@ -60,7 +66,7 @@ const Listing = ({ friendData, setFriendData, }) => /**/ {
     friend[0].modalOpen = true
     setActiveFriend(...friend);
   }
-
+/* 
   const whoMyOnionBois=(category, preferenceId) => (  friendData.filter(friend => {
   
       if(friend[category]){
@@ -69,13 +75,13 @@ const Listing = ({ friendData, setFriendData, }) => /**/ {
         return null;
       }  
     })
-  )
+  ) */
  //console.log(whoMyOnionBois("favoriteFoods", "onion"))
 
   const renderFriendsList = () => (
     friendData.map((friend, i) => (
       <li key={friend.id} className="listing_friend">
-        <button class="listing_friend-name button material" onClick={() => {openFriendDetails(friend.id)}}>
+        <button className="listing_friend-name button material" onClick={() => {openFriendDetails(friend.id)}}>
           {friend.lastName}, {friend.firstName}
         </button>
         <button className="button material material-black" onClick={() => {removeFriendRefreshList(friend.id) }}>X</button>
@@ -87,22 +93,22 @@ const Listing = ({ friendData, setFriendData, }) => /**/ {
     <>
       <h1>Friends</h1>
 
-      <h2 class="listing_subheading">Add a Friend</h2>
-      <div class="listing_form">
-        <div class="listing_inputs-wrapper">
+      <h2 className="listing_subheading">Add a Friend</h2>
+      <div className="listing_form">
+        <div className="listing_inputs-wrapper">
           <input className="listing_input material" type="text" id="first-name-input" name="firstName" placeholder="first name" onChange={(e) => { inputToState(e) }} onFocus={(e) => { e.target.value = "" }} />
           <input className="listing_input  material" type="text" id="last-name-input" name="lastName" placeholder="last name" onChange={(e) => { inputToState(e) }} onFocus={(e) => { e.target.value = "" }} />
         </div>
         <button className="button material material-black" onClick={() => { addFriendRefreshList() }}>Add 'em</button>
       </div>
 
-      <h2 class="listing_subheading">All Friends</h2>
-      <ul class="listing_friends">
+      <h2 className="listing_subheading">All Friends</h2>
+      <ul className="listing_friends">
         {renderFriendsList()}
       </ul>
       {activeFriend && activeFriend.modalOpen ?
             <Modal open={activeFriend.modalOpen} toggle={()=>{setActiveFriend(defaultActiveFriend)}}>
-               <FriendDashboard friend={activeFriend} />
+               <FriendDashboard friend={activeFriend} setFriendData={setFriendData} friendData={friendData}/>
             </Modal> : "" }
     </>
   );

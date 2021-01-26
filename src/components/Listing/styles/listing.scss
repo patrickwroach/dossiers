@@ -50,6 +50,20 @@
         }
     }
     &_dashboard {
+        &_input {
+           margin:  1rem 0;
+        }
+        &_new-preference{
+            display:flex;
+            &_input {
+                margin: 0;
+            }
+   
+            &_button {
+               margin: 0;
+               margin-left:1rem;
+            }
+        }
     
     }
     

@@ -1,5 +1,6 @@
 input {
   @extend .radius-small;
+  box-sizing: border-box;
   width: 100%;
   position: relative;
   @extend .text-body1;
@@ -10,7 +11,6 @@ input {
   @include animation(padding);
   @include spacing(margin, 1);
   display: block;
-  width: 90%;
   &::placeholder {
     @extend .text-tertiary;
   }
