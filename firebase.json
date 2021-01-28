@@ -9,7 +9,8 @@
   "functions": {
     "predeploy": [
       "npm --prefix \"$RESOURCE_DIR\" run lint"
-    ]
+    ],
+    "source": "functions"
   },
   "hosting": {
     "public": "build",
@@ -50,5 +51,8 @@
     "ui": {
       "enabled": true
     }
+  },
+  "remoteconfig": {
+    "template": "remoteconfig.template.json"
   }
 }

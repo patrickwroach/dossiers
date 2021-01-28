@@ -1,41 +1,38 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Footer from './components/Footer';
 import MainNav from './components/MainNav';
-import Home from './components/home';
+import Home from './components/Home';
 import Listing from './components/Listing';
 import { useState, useEffect } from 'react';
 
-
-import { getFriends } from './firebase/firebaseActions';
-
+import { asyncGetFriends } from './firebase/firebaseActions';
 
 function App() {
-
-  const [friendData, setFriendData] = useState(getFriends());
+  const [friendData, setFriendData] = useState([]);
+  
   useEffect(() => {
-    setFriendData(getFriends())
-  },
-    []
-  )
-
-
+      (async () => {
+        const friends = await asyncGetFriends();
+        setFriendData(friends);
+      })();
+    }, [],
+  );
+  
   return (
     <Router>
       <div className="App">
-        <MainNav />
+        <MainNav/>
         <div className="content">
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/listing" render={() => <Listing friendData={friendData} setFriendData={setFriendData} />} />
+            <Route exact path="/" component={Home}/>
+            <Route path="/listing" render={() => <Listing friendData={friendData} setFriendData={setFriendData}/>}/>
           </Switch>
         </div>
-        <Footer />
+        <Footer/>
       </div>
     </Router>
-
-
   );
 }
 

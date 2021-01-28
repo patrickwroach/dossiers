@@ -1,0 +1,70 @@
+.listing {
+
+    &_form {
+        display: flex;
+        margin: 0 auto;
+        min-width: 300px;
+        max-width: 600px;
+        width: 60%;
+        justify-content: space-between;
+        @media only screen and (max-width: 600px) { 
+            display: block;
+        }
+    }
+
+    &_inputs-wrapper {
+        flex: 1 1 auto;
+    }
+    &_subheading {
+        @include spacing(margin, 3);
+        text-align: center;
+
+    }
+    &_friends {
+        display: grid;
+        grid-template-columns: repeat(3, 33% [col-start]);
+        justify-content: space-between;
+        @media only screen and (max-width: 900px) { 
+            grid-template-columns: repeat(2, 50% [col-start]);
+        }
+        @media only screen and (max-width: 600px) { 
+            display: block;
+        }
+    }
+    
+    &_friend {
+        @include spacing(margin, 2);
+        @include spacing(padding, 1);
+        align-items: center;
+        border-bottom: 1px solid black; 
+        display:flex;
+        justify-content: space-between;
+
+        &-name {
+            width:100%;
+            margin-right: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            height:50px;
+        }
+    }
+    &_dashboard {
+        &_input {
+           margin:  1rem 0;
+        }
+        &_new-preference{
+            display:flex;
+            &_input {
+                margin: 0;
+            }
+   
+            &_button {
+               margin: 0;
+               margin-left:1rem;
+            }
+        }
+    
+    }
+    
+}

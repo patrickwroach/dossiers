@@ -2,7 +2,8 @@
 $cornerMultiplier: 2;
 
 @mixin cornerradius($num) {
-  border-radius:$num * $cornerMultiplier * 1px;
+  border-radius:$num * $cornerMultiplier * 3px;
+  border-top-right-radius: 0;
 }
 
 .radius-xsmall{
