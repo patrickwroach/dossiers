@@ -5,7 +5,7 @@ const FriendDashboard = ({friend})=>{
 
    const [newPreference, setNewPreference] = useState({})
    const [selectedFriend, setSelectedFriend] = useState (friend);
-   const [toggleEditableFields, setToggleEditableFields] = useState(false);
+  //const [toggleEditableFields, setToggleEditableFields] = useState(false);
     //TODO: make some input to state blanket helper function, maybe a custom hook?
     const inputCategoryToState = (targetCategory) => {
     let toAddToState = newPreference;

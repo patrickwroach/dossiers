@@ -1,10 +1,44 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import firebaseConfig from './firebaseConfig';
+import "firebase/auth";
 
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
+
+//TO DO seperate these methods into smaller action files based on their concerns
+// Email auth stuff 
+const signInWithEmailAndPassword = (email, password) => {
+firebase.auth().signInWithEmailAndPassword(email, password)
+  .then((userCredential) => {
+    // Signed in
+    //var user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+   // var errorCode = error.code;
+   // var errorMessage = error.message;
+  });
+}
+
+const createUserWithEmailAndPassword = (email, password) => {
+firebase.auth().createUserWithEmailAndPassword(email, password)
+  .then((userCredential) => {
+    // Signed in 
+    //var user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    //var errorCode = error.code;
+   // var errorMessage = error.message;
+    // ..
+  });
+}
+
+
+
+//Friend and Preference DB interactions
 const blankResponses = {
     
   favoriteFoods:{
@@ -111,4 +145,13 @@ const asyncGetFriends = async () => {
 }
 
 
-export { db, getFriends, addFriend, asyncGetFriends, deleteFriend, addPreference  };
+export { 
+  db, 
+  getFriends, 
+  addFriend, 
+  asyncGetFriends, 
+  deleteFriend, 
+  addPreference,
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword
+};

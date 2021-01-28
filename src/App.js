@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Footer from './components/Footer';
 import MainNav from './components/MainNav';
-import Home from './components/Home';
+import LoginForm from './components/LoginForm';
 import Listing from './components/Listing';
 import { useState, useEffect } from 'react';
 
@@ -26,7 +26,7 @@ function App() {
         <MainNav/>
         <div className="content">
           <Switch>
-            <Route exact path="/" component={Home}/>
+            <Route exact path="/" component={LoginForm}/>
             <Route path="/listing" render={() => <Listing friendData={friendData} setFriendData={setFriendData}/>}/>
           </Switch>
         </div>
