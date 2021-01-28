@@ -1,0 +1,256 @@
+diff --git a/src/App.js b/src/App.js
+index 062ae77..9642b09 100644
+--- a/src/App.js
++++ b/src/App.js
+@@ -1,5 +1,5 @@
+ import './App.css';
+-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
++import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+ 
+ import Footer from './components/Footer';
+ import MainNav from './components/MainNav';
+@@ -7,35 +7,32 @@ import Home from './components/home';
+ import Listing from './components/Listing';
+ import { useState, useEffect } from 'react';
+ 
+-
+-import { getFriends } from './firebase/firebaseActions';
+-
++import { asyncGetFriends } from './firebase/firebaseActions';
+ 
+ function App() {
+-
+-  const [friendData, setFriendData] = useState(getFriends());
++  const [friendData, setFriendData] = useState([]);
++  
+   useEffect(() => {
+-    setFriendData(getFriends())
+-  },
+-    []
+-  )
+-
+-
++      (async () => {
++        const friends = await asyncGetFriends();
++        setFriendData(friends);
++      })();
++    }, [],
++  );
++  
+   return (
+     <Router>
+       <div className="App">
+-        <MainNav />
++        <MainNav/>
+         <div className="content">
+           <Switch>
+-            <Route exact path="/" component={Home} />
+-            <Route path="/listing" render={() => <Listing friendData={friendData} setFriendData={setFriendData} />} />
++            <Route exact path="/" component={Home}/>
++            <Route path="/listing" render={() => <Listing friendData={friendData} setFriendData={setFriendData}/>}/>
+           </Switch>
+         </div>
+-        <Footer />
++        <Footer/>
+       </div>
+     </Router>
+-
+-
+   );
+ }
+ 
+diff --git a/src/components/Listing/index.js b/src/components/Listing/index.js
+index 0a19fa5..4c6be36 100644
+--- a/src/components/Listing/index.js
++++ b/src/components/Listing/index.js
+@@ -1,48 +1,57 @@
+ import { useState, useEffect } from 'react';
+-import  { addFriend, getFriends }  from '../../firebase/firebaseActions';
++import { addFriend, getFriends } from '../../firebase/firebaseActions';
+ 
+-const Listing = ({friendData, setFriendData})=> {
+-    const [loadedfriendData, setLoadedfriendData] = useState(friendData)
+-    let newPers;
+-    function makeid(length) {
+-        var result           = '';
+-        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+-        var charactersLength = characters.length;
+-        for ( var i = 0; i < length; i++ ) {
+-           result += characters.charAt(Math.floor(Math.random() * charactersLength));
+-        }
+-        return result;
+-      }
+-      
+-    const addAndUpdateFriend = () => {
+-      newPers = makeid(3)
+-      addFriend(newPers, newPers);
+-      setFriendData(getFriends());
+-    }
+-    
+-
+-    const listfriendData = () => {
+-        console.log("checking on list")
+-        let compiledList = "Waiting on list friendData";
+-        console.log(friendData)
+-        if (friendData) {
+-            console.log("i got em")
+-            compiledList = loadedfriendData.map((item, i) => {
+-          return <li  key={item.id}>{item.firstName}</li>      
+-        })} 
+-        return compiledList
+-    }
+-
+-
+-    return (
+-        <>
+-        <h1>Friends</h1>
+-        <button onClick={() => {addAndUpdateFriend()}} className="button material material-black">Submit</button>
+-        <ul className="list">
+-          {listfriendData()}
+-        </ul>
+-        </>
+-    )
+-
+-}
++const Listing = ({ friendData, setFriendData }) => /**/ {
++  // const [loadedfriendData, setLoadedfriendData] = useState(friendData);
++  // let newPers;
++  //
++  // function makeid(length) {
++  //   var result = '';
++  //   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
++  //   var charactersLength = characters.length;
++  //   for (var i = 0; i < length; i++) {
++  //     result += characters.charAt(Math.floor(Math.random() * charactersLength));
++  //   }
++  //   return result;
++  // }
++  //
++  // const addAndUpdateFriend = () => {
++  //   newPers = makeid(3);
++  //   addFriend(newPers, newPers);
++  //   setFriendData(getFriends());
++  // };
++  //
++  // const listfriendData = () => {
++  //   console.log('checking on list');
++  //   let compiledList = 'Waiting on list friendData';
++  //   console.log(friendData);
++  //   if (friendData) {
++  //     console.log('i got em');
++  //     compiledList = loadedfriendData.map((item, i) => {
++  //       return <li key={item.id}>{item.firstName}</li>;
++  //     });
++  //   }
++  //   return compiledList;
++  // };
++  
++  const renderFriendsList = () => (
++    friendData.map((friend, i) => (
++      <li key={i}>
++        {friend.id}
++      </li>
++    ))
++  )
++  
++  console.log('[DEBUG] Listing', { friendData, hasData: friendData.length > 0 });
++  
++  return (
++    <>
++      <h1>Friends</h1>
++      <ul>
++        { renderFriendsList() }
++      </ul>
++    </>
++  );
++  
++};
+ export default Listing;
+\ No newline at end of file
+diff --git a/src/firebase/firebaseActions.js b/src/firebase/firebaseActions.js
+index 84e609f..17543e4 100644
+--- a/src/firebase/firebaseActions.js
++++ b/src/firebase/firebaseActions.js
+@@ -1,41 +1,49 @@
+-import firebase from "firebase/app";
+-import "firebase/firestore";
++import firebase from 'firebase/app';
++import 'firebase/firestore';
+ import firebaseConfig from './firebaseConfig';
+ 
+ firebase.initializeApp(firebaseConfig);
+ var db = firebase.firestore();
+ 
+- const addFriend = (firstName, lastName) => {
+-    const docId =`${lastName}-${firstName}`
+-    var friendsRef = db.collection("friends");
+-    var docRef = friendsRef.doc(docId);
+-    docRef.get().then(function(doc) {
+-        if (doc.exists) {
+-            alert("already have this friend");
+-        } else {
+-          friendsRef.doc(docId).set({
+-            firstName: firstName,
+-            lastName: lastName,
+-          });
+-        }
+-    }).catch(function(error) {
+-        console.log("Error getting document:", error);
++const addFriend = (firstName, lastName) => {
++  const docId = `${lastName}-${firstName}`;
++  var friendsRef = db.collection('friends');
++  var docRef = friendsRef.doc(docId);
++  docRef.get().then(function (doc) {
++    if (doc.exists) {
++      alert('already have this friend');
++    } else {
++      friendsRef.doc(docId).set({
++        firstName: firstName,
++        lastName: lastName,
++      });
++    }
++  }).catch(function (error) {
++    console.log('Error getting document:', error);
++  });
++};
++
++const getFriends = () => {
++  let allFriends = [];
++  db.collection('friends').get().then(function (querySnapshot) {
++    
++    querySnapshot.forEach(function (doc) {
++      let aFriend = doc.data();
++      aFriend.id = doc.id;
++      allFriends.push(aFriend);
++      
+     });
+-  }
++    
++  });
++  return allFriends;
++};
+ 
+-  const getFriends =  () => {
+-    let allFriends =[]
+-    db.collection("friends").get().then(function(querySnapshot) {
+-  
+-        querySnapshot.forEach(function(doc) {
+-          let aFriend = doc.data();
+-          aFriend.id=doc.id;
+-          allFriends.push(aFriend)
+-     
+-        });
+-  
+-    })
+-    return allFriends;
+-  };
++const asyncGetFriends = async () => {
++  const { docs } = await db.collection('friends').get();
++  return docs.map((friend) => ({
++    ...friend.data(),
++    id: friend.id,
++  }));
++}
+ 
+-  export { db, getFriends, addFriend };
++export { db, getFriends, addFriend, asyncGetFriends };

@@ -6,7 +6,11 @@ const FriendDashboard = ({friend})=>{
    const [newPreference, setNewPreference] = useState({})
    const [selectedFriend, setSelectedFriend] = useState (friend);
    const [toggleEditableFields, setToggleEditableFields] = useState(false);
+<<<<<<< HEAD
     //TODO: make some input to state blanket helper function, maybe a custom hook?
+=======
+     //TODO: make some input to state blanket helper function, maybe a custom hook?
+>>>>>>> 5390fb8913f854749408e61f0dd54f985c619547
     const inputCategoryToState = (targetCategory) => {
     let toAddToState = newPreference;
     toAddToState.category = targetCategory;
@@ -96,10 +100,15 @@ const FriendDashboard = ({friend})=>{
     return(
     <>
         <h3>{selectedFriend.firstName} {selectedFriend.lastName}</h3>
+<<<<<<< HEAD
         {selectedFriend.responses ? getCategories() : ""}
         <button className="listing_dashboard_editable-toggle button material material-black" onClick={()=>{setToggleEditableFields(!toggleEditableFields)}}>
             {edit}
         </button>
+=======
+        <button className="button material material-black" onClick={setToggleEditableFields(!toggleEditableFields)}>edit</button>
+        {selectedFriend.responses ? getCategories() : ""}
+>>>>>>> 5390fb8913f854749408e61f0dd54f985c619547
     </>
     )
 }
