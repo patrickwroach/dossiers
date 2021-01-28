@@ -5,7 +5,7 @@ const FriendDashboard = ({friend})=>{
 
    const [newPreference, setNewPreference] = useState({})
    const [selectedFriend, setSelectedFriend] = useState (friend);
-
+   const [toggleEditableFields, setToggleEditableFields] = useState(false);
      //TODO: make some input to state blanket helper function, maybe a custom hook?
     const inputCategoryToState = (targetCategory) => {
     let toAddToState = newPreference;
@@ -17,7 +17,6 @@ const FriendDashboard = ({friend})=>{
         toAddToState.value = e.target.value;
         setNewPreference(toAddToState);
     }
-
     const getCategories =()=>{
         const categories = selectedFriend.responses;
         const getItems = (targetCategory) => (
@@ -97,6 +96,7 @@ const FriendDashboard = ({friend})=>{
     return(
     <>
         <h3>{selectedFriend.firstName} {selectedFriend.lastName}</h3>
+        <button className="button material material-black" onClick={setToggleEditableFields(!toggleEditableFields)}>edit</button>
         {selectedFriend.responses ? getCategories() : ""}
     </>
     )
