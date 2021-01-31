@@ -35,9 +35,9 @@ const ListingPage = ({ friendData, setFriendData, }) => /**/ {
   }
 
   const addFriendRefreshList = () => {
+    console.log(newFriend)
     if (newFriend.firstName && 
-        newFriend.lastName && 
-        newFriend !== defaultNewFriend
+        newFriend.lastName 
         )
          {
       addFriend(newFriend.firstName, newFriend.lastName);
@@ -45,7 +45,7 @@ const ListingPage = ({ friendData, setFriendData, }) => /**/ {
       firstNameInput.value = firstNameInput.placeholder
       const lastNameInput = document.getElementById("last-name-input");
       lastNameInput.value = lastNameInput.placeholder
-      setNewFriend({ defaultNewFriend });
+      setNewFriend(defaultNewFriend);
       setTimeout(refreshFriends, 100)
     } else {
       alert("Your friend needs a first and last name")
@@ -54,8 +54,18 @@ const ListingPage = ({ friendData, setFriendData, }) => /**/ {
 
   };
 
-  const removeFriendRefreshList = (id) => {
+  const removeFriendRefreshList = (friend) => {
+    const {
+      id,
+      firstName
+    } = friend
+    var person = prompt(`Are you sure you want to delete ${firstName}, type out their first name to confirm`);
+    if (person === firstName) {
     deleteFriend(id);
+      } else {
+    alert(`Whew, that was a close one. Glad you are keeping ${firstName} around`)
+  }
+ 
     setTimeout(refreshFriends, 100)
   }
 
@@ -84,14 +94,14 @@ const ListingPage = ({ friendData, setFriendData, }) => /**/ {
         <button className="listing_friend-name button material" onClick={() => {openFriendDetails(friend.id)}}>
           {friend.lastName}, {friend.firstName}
         </button>
-        <button className="button material material-black" onClick={() => {removeFriendRefreshList(friend.id) }}>X</button>
+        <button className="button material material-black" onClick={() => {removeFriendRefreshList(friend)}}>X</button>
       </li>
     ))
   )
 
   return (
     <>
-      <h1>Friends</h1>
+      <h1 className="listing_heading">Friends</h1>
 
       <h2 className="listing_subheading">Add a Friend</h2>
       <div className="listing_form">

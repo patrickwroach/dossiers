@@ -125,24 +125,6 @@ const deleteFriend = (id) =>{
   db.collection("friends").doc(id).delete()
 }
 
-const getFriends = () => {
-  let allFriends = [];
-  db.collection('friends').get().then(function (querySnapshot) {
-    
-    querySnapshot.forEach(function (doc) {
-      let aFriend = doc.data();
-      console.log(aFriend)
-      if(aFriend.favoriteFoods){
-      }
-      aFriend.id = doc.id;
-      allFriends.push(aFriend); 
-    });
-
-    
-  });
-  return allFriends;
-};
-
 const asyncGetFriends = async () => {
   const { docs } = await db.collection('friends').get();
   return docs.map((friend) => ({
@@ -158,7 +140,6 @@ export {
   generateUserDocument,
   signOutUser,
   db, 
-  getFriends, 
   addFriend, 
   asyncGetFriends, 
   deleteFriend, 
