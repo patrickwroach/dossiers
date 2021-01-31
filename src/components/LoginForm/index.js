@@ -13,8 +13,8 @@ const LoginForm = () => {
         setFormInput(toAddToState);
     }
     const handleSignIn = () => {
-        const promise = signInWithEmailAndPassword(formInput.email, formInput.password);
-        promise.catch(e =>console.log(e.message))
+        signInWithEmailAndPassword(formInput);
+      //  promise.catch(e =>console.log(e.message))
     }
     return(
             <div className="login">

@@ -1,6 +1,17 @@
 .footer {
+  align-items: center;
+  justify-content: flex-end;
   @include spacing(padding, 3);
+  display: flex;
   padding-left:5%;
   padding-right:5%;
   text-align: right;
+  background: rgb(2,0,36);
+  background: linear-gradient(84deg, rgba(2,0,36,1) 0%, rgb(47, 35, 52) 71%, rgba(37,7,82,1) 100%);
+  &_sign-out {
+    @include spacing(padding, 2);
+    @include spacing(margin, 0);
+    margin-left: 10px; 
+    font-size:small;
+  }
 }

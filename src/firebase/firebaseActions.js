@@ -3,40 +3,54 @@ import 'firebase/firestore';
 import firebaseConfig from './firebaseConfig';
 import "firebase/auth";
 
-firebase.initializeApp(firebaseConfig);
-var db = firebase.firestore();
+
+let db = firebase.firestore();
+const auth = firebase.auth;
 
 
-//TO DO seperate these methods into smaller action files based on their concerns
+
+//TODO: seperate these methods into smaller action files based on their concerns
 // Email auth stuff 
-const signInWithEmailAndPassword = (email, password) => {
-firebase.auth().signInWithEmailAndPassword(email, password)
+const signInWithEmailAndPassword = (formInput) => {
+  const {
+    email,
+    password
+  } = formInput
+  auth().signInWithEmailAndPassword(email, password)
   .then((userCredential) => {
-    // Signed in
-    //var user = userCredential.user;
-    // ...
+    console.log(userCredential.user)
   })
   .catch((error) => {
-   // var errorCode = error.code;
-   // var errorMessage = error.message;
-  });
+   var errorCode = error.code;
+   var errorMessage = error.message;
+   console.log(errorCode, errorMessage)
+  }); 
 }
 
-const createUserWithEmailAndPassword = (email, password) => {
-firebase.auth().createUserWithEmailAndPassword(email, password)
+const createUserWithEmailAndPassword = (formInput) => {
+  const {
+    email,
+    password
+  } = formInput
+  
+  auth().createUserWithEmailAndPassword(email, password)
   .then((userCredential) => {
     // Signed in 
-    //var user = userCredential.user;
-    // ...
+    var user = userCredential.user;
+    console.log(user)
+    //...
   })
   .catch((error) => {
-    //var errorCode = error.code;
-   // var errorMessage = error.message;
-    // ..
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(errorCode, errorMessage)
   });
 }
 
-
+const signOutUser = () =>{
+  auth().signOut()
+  console.log("user signed out")
+}
 
 //Friend and Preference DB interactions
 const blankResponses = {
@@ -85,7 +99,6 @@ const addPreference = (newPreference, friend) => {
   var friendsRef = db.collection('friends');
   var friendDocRef = friendsRef.doc(friendDocId);
   friendDocRef.get().then(function (doc) {
-    console.log("debug" ,`responses.${newPreference.category}.items`)
       friendsRef.doc(friendDocId).update({  
         [`responses.${newPreference.category}.items`]: firebase.firestore.FieldValue.arrayUnion(newPreference.value)
       });
@@ -134,8 +147,6 @@ const getFriends = () => {
   return allFriends;
 };
 
-
-
 const asyncGetFriends = async () => {
   const { docs } = await db.collection('friends').get();
   return docs.map((friend) => ({
@@ -146,6 +157,7 @@ const asyncGetFriends = async () => {
 
 
 export { 
+  auth,
   db, 
   getFriends, 
   addFriend, 
@@ -153,5 +165,6 @@ export {
   deleteFriend, 
   addPreference,
   signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  signOutUser
 };

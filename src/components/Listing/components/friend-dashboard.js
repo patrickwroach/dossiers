@@ -57,7 +57,8 @@ const FriendDashboard = ({friend})=>{
             setTimeout(() => resolve("done!"), 1000)
             addPreferenceUpdateData();
           });
-          let result = await promise; // wait until the promise resolves (*)   
+          let result = await promise; // wait until the promise resolves (*)
+          console.log("user updated", result)   
           cleanUpNewPreferenceState(); // "done!"
 
         }
