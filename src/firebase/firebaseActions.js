@@ -1,13 +1,12 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import firebaseConfig from './firebaseConfig';
-import "firebase/auth";
+import firebaseConfig from './config';
+import 'firebase/auth';
 
 
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+const firebaseAppAuth = firebaseApp.auth();
 let db = firebase.firestore();
-const auth = firebase.auth;
-
-
 
 //TODO: seperate these methods into smaller action files based on their concerns
 // Email auth stuff 
@@ -16,7 +15,7 @@ const signInWithEmailAndPassword = (formInput) => {
     email,
     password
   } = formInput
-  auth().signInWithEmailAndPassword(email, password)
+  firebaseAppAuth.signInWithEmailAndPassword(email, password)
   .then((userCredential) => {
     console.log(userCredential.user)
   })
@@ -33,7 +32,7 @@ const createUserWithEmailAndPassword = (formInput) => {
     password
   } = formInput
   
-  auth().createUserWithEmailAndPassword(email, password)
+  firebaseAppAuth.createUserWithEmailAndPassword(email, password)
   .then((userCredential) => {
     // Signed in 
     var user = userCredential.user;
@@ -48,13 +47,12 @@ const createUserWithEmailAndPassword = (formInput) => {
 }
 
 const signOutUser = () =>{
-  auth().signOut()
+  firebaseAppAuth.signOut()
   console.log("user signed out")
 }
 
 //Friend and Preference DB interactions
 const blankResponses = {
-    
   favoriteFoods:{
     displayName: 'Favorite Foods',
     items:[]
@@ -157,14 +155,13 @@ const asyncGetFriends = async () => {
 
 
 export { 
-  auth,
+  firebaseApp, 
+  firebaseAppAuth,
+  signOutUser,
   db, 
   getFriends, 
   addFriend, 
   asyncGetFriends, 
   deleteFriend, 
-  addPreference,
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword,
-  signOutUser
+  addPreference  
 };

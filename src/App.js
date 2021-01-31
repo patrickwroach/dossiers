@@ -1,51 +1,39 @@
-import { useState, useEffect, useContext } from 'react';
+import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import firebase from 'firebase/app';
-
+import firebase from 'firebase/app'
 import Footer from './components/Footer';
-import Home from './components/Home'
 import MainNav from './components/MainNav';
-import LoginForm from './components/LoginForm';
+import Home from './components/Home';
 import Listing from './components/Listing';
+import { useState, useEffect } from 'react';
 
-import firebaseConfig from './firebase/firebaseConfig';
-import { auth} from './firebase/firebaseActions';
-import { asyncGetFriends } from './firebase/firebaseActions';
+import { 
+  asyncGetFriends,
+ } from './firebase/firebaseActions';
 
-firebase.initializeApp(firebaseConfig);
-
-function App({user, signOut, signInWithGoogle}) {
-
-  //const user = useContext(UserContext);
+const App = ({  user, signOut,signInWithGoogle,}) => {
+  
   const [friendData, setFriendData] = useState([]);
+  
   useEffect(() => {
       (async () => {
         const friends = await asyncGetFriends();
         setFriendData(friends);
       })();
-    }, []
+    }, [],
   );
   
   return (
-    <>
-      <MainNav user={user}/>
-          <div className="content">
-          <LoginForm />
-  
-  
-           <Router>
-            <Switch>
-              <Route path="/profile" component={Home}/>
-              <Route path="/" render={() => <Listing friendData={friendData} setFriendData={setFriendData}/>}/>
-            </Switch>
-            </Router>
-
-  
-          
-            
-          </div>
-        <Footer user={user}/>
-    </>
+    <Router>
+        <MainNav/>
+        <div className="content">
+          <Switch>
+            <Route exact path="/" render={() => <Listing friendData={friendData} setFriendData={setFriendData}/>}/>
+            <Route path="/profile" component={Home}/>
+          </Switch>
+        </div>
+        <Footer/>
+    </Router>
   );
 }
 
