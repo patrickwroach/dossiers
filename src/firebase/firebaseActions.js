@@ -10,41 +10,39 @@ let db = firebase.firestore();
 
 //TODO: seperate these methods into smaller action files based on their concerns
 // Email auth stuff 
-const signInWithEmailAndPassword = (formInput) => {
-  const {
-    email,
-    password
-  } = formInput
-  firebaseAppAuth.signInWithEmailAndPassword(email, password)
-  .then((userCredential) => {
-    console.log(userCredential.user)
-  })
-  .catch((error) => {
-   var errorCode = error.code;
-   var errorMessage = error.message;
-   console.log(errorCode, errorMessage)
-  }); 
-}
 
-const createUserWithEmailAndPassword = (formInput) => {
-  const {
-    email,
-    password
-  } = formInput
-  
-  firebaseAppAuth.createUserWithEmailAndPassword(email, password)
-  .then((userCredential) => {
-    // Signed in 
-    var user = userCredential.user;
-    console.log(user)
-    //...
-  })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log(errorCode, errorMessage)
-  });
-}
+
+const generateUserDocument = async (user, additionalData) => {
+  if (!user) return;
+  const userRef = db.doc(`users/${user.uid}`);
+  const userSnapshot = await userRef.get();
+  if (!userSnapshot.exists) {
+    const { email, displayName, photoURL } = user;
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        photoURL,
+        ...additionalData
+      });
+    } catch (error) {
+      console.error("Error creating user document", error);
+    }
+  }
+  return getUserDocument(user.uid);
+};
+const getUserDocument = async uid => {
+  if (!uid) return null;
+  try {
+    const userDocument = await db.doc(`users/${uid}`).get();
+    return {
+      uid,
+      ...userDocument.data()
+    };
+  } catch (error) {
+    console.error("Error fetching user", error);
+  }
+};
 
 const signOutUser = () =>{
   firebaseAppAuth.signOut()
@@ -157,6 +155,7 @@ const asyncGetFriends = async () => {
 export { 
   firebaseApp, 
   firebaseAppAuth,
+  generateUserDocument,
   signOutUser,
   db, 
   getFriends, 

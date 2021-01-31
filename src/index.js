@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import UserProvider from './components/providers/userProvider'
+import UserProvider from './components/providers/UserProvider'
 
 import './index.scss';
 import App from './App';

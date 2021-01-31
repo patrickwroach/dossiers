@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {signInWithEmailAndPassword} from '../../firebase/firebaseActions'
+import {firebaseAppAuth} from '../../firebase/firebaseActions'
 
 
 
@@ -12,10 +12,17 @@ const LoginForm = () => {
         toAddToState[e.target.type] = e.target.value;
         setFormInput(toAddToState);
     }
-    const handleSignIn = () => {
-        signInWithEmailAndPassword(formInput);
-      //  promise.catch(e =>console.log(e.message))
-    }
+
+    const signInWithEmailAndPasswordHandler = (formInput) => {
+        const {
+            email,
+            password
+        } = formInput
+        firebaseAppAuth.signInWithEmailAndPassword(email, password).catch(error => {
+          console.error("Error signing in with password and email", error);
+        });
+      };
+
     return(
             <div className="login">
         <input 
@@ -35,10 +42,11 @@ const LoginForm = () => {
         <button 
             className="button material material-black" 
             id="btnLogin"
-            onClick={()=>{handleSignIn()}}
-            > Log In</button>
-        <button className="button material material-black" id="btnSignUp"> Sign up</button>
-    </div>
+            onClick={()=>{signInWithEmailAndPasswordHandler(formInput)}}
+            > 
+            Log In
+        </button>
+     </div>
     )
 }
 

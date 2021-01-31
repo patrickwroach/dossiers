@@ -1,5 +1,5 @@
 import  { useState, useEffect, createContext } from 'react';
-import { firebaseAppAuth  } from '../../firebase/firebaseActions'
+import { firebaseAppAuth, generateUserDocument } from '../../firebase/firebaseActions'
 
 export const UserContext = createContext({ user: null });
 const UserProvider = ({children}) => {
@@ -7,8 +7,9 @@ const UserProvider = ({children}) => {
 
     useEffect(() => {
         (async () => {
-            firebaseAppAuth.onAuthStateChanged(userAuth => {
-                setUser({ user: userAuth});
+            firebaseAppAuth.onAuthStateChanged(async userAuth => {
+                const currentUser = await generateUserDocument(userAuth);
+                setUser(currentUser);
             })
             })();
         }, [],
