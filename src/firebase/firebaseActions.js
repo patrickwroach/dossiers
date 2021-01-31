@@ -1,12 +1,56 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import firebaseConfig from './firebaseConfig';
+import firebaseConfig from './config';
+import 'firebase/auth';
 
-firebase.initializeApp(firebaseConfig);
-var db = firebase.firestore();
 
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+const firebaseAppAuth = firebaseApp.auth();
+let db = firebase.firestore();
+
+//TODO: seperate these methods into smaller action files based on their concerns
+// Email auth stuff 
+
+
+const generateUserDocument = async (user, additionalData) => {
+  if (!user) return;
+  const userRef = db.doc(`users/${user.uid}`);
+  const userSnapshot = await userRef.get();
+  if (!userSnapshot.exists) {
+    const { email, displayName, photoURL } = user;
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        photoURL,
+        ...additionalData
+      });
+    } catch (error) {
+      console.error("Error creating user document", error);
+    }
+  }
+  return getUserDocument(user.uid);
+};
+const getUserDocument = async uid => {
+  if (!uid) return null;
+  try {
+    const userDocument = await db.doc(`users/${uid}`).get();
+    return {
+      uid,
+      ...userDocument.data()
+    };
+  } catch (error) {
+    console.error("Error fetching user", error);
+  }
+};
+
+const signOutUser = () =>{
+  firebaseAppAuth.signOut()
+  console.log("user signed out")
+}
+
+//Friend and Preference DB interactions
 const blankResponses = {
-    
   favoriteFoods:{
     displayName: 'Favorite Foods',
     items:[]
@@ -51,7 +95,6 @@ const addPreference = (newPreference, friend) => {
   var friendsRef = db.collection('friends');
   var friendDocRef = friendsRef.doc(friendDocId);
   friendDocRef.get().then(function (doc) {
-    console.log("debug" ,`responses.${newPreference.category}.items`)
       friendsRef.doc(friendDocId).update({  
         [`responses.${newPreference.category}.items`]: firebase.firestore.FieldValue.arrayUnion(newPreference.value)
       });
@@ -100,8 +143,6 @@ const getFriends = () => {
   return allFriends;
 };
 
-
-
 const asyncGetFriends = async () => {
   const { docs } = await db.collection('friends').get();
   return docs.map((friend) => ({
@@ -111,4 +152,15 @@ const asyncGetFriends = async () => {
 }
 
 
-export { db, getFriends, addFriend, asyncGetFriends, deleteFriend, addPreference  };
+export { 
+  firebaseApp, 
+  firebaseAppAuth,
+  generateUserDocument,
+  signOutUser,
+  db, 
+  getFriends, 
+  addFriend, 
+  asyncGetFriends, 
+  deleteFriend, 
+  addPreference  
+};

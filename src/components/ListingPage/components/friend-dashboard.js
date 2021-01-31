@@ -5,7 +5,7 @@ const FriendDashboard = ({friend})=>{
 
    const [newPreference, setNewPreference] = useState({})
    const [selectedFriend, setSelectedFriend] = useState (friend);
-   const [toggleEditableFields, setToggleEditableFields] = useState(false);
+  //const [toggleEditableFields, setToggleEditableFields] = useState(false);
     //TODO: make some input to state blanket helper function, maybe a custom hook?
     const inputCategoryToState = (targetCategory) => {
     let toAddToState = newPreference;
@@ -57,7 +57,8 @@ const FriendDashboard = ({friend})=>{
             setTimeout(() => resolve("done!"), 1000)
             addPreferenceUpdateData();
           });
-          let result = await promise; // wait until the promise resolves (*)   
+          let result = await promise; // wait until the promise resolves (*)
+          console.log("user updated", result)   
           cleanUpNewPreferenceState(); // "done!"
 
         }

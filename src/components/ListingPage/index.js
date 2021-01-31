@@ -6,7 +6,7 @@ import Modal from '../Modal'
 
 
 
-const Listing = ({ friendData, setFriendData, }) => /**/ {
+const ListingPage = ({ friendData, setFriendData, }) => /**/ {
   const defaultNewFriend = {
     firstName: "first-name",
     lastName: "last-name"
@@ -114,4 +114,4 @@ const Listing = ({ friendData, setFriendData, }) => /**/ {
   );
 
 };
-export default Listing;
+export default ListingPage;

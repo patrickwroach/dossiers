@@ -30,7 +30,9 @@
 }
 
 .material-black {
-  --material-base: #160000;
+  
+  background: rgb(2,0,36);
+  background: linear-gradient(84deg, rgba(2,0,36,1) 0%, rgb(47, 35, 52) 71%, rgba(37,7,82,1) 100%);
   --text-base: var(--grey00);
 }
 
@@ -292,10 +294,8 @@
   color: rgba(var(--text-base), var(--text-opacity));
 }
 body,
-root {
+#root {
   height: 100%;
-}
-.App {
   display: flex;
   min-height: 100vh;
   flex-direction: column;

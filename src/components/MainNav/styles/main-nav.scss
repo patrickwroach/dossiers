@@ -8,11 +8,17 @@
   padding-right: 5%;
   text-align: left;
   width: 100%;
-
+  background: rgb(2,0,36);
+  background: linear-gradient(88deg, rgba(2,0,36,1) 0%, rgb(47, 35, 52) 71%,rgba(37,7,82,1) 100%);
   a {
     color: white;
     text-decoration: none;
+      &.main-nav_link-button {
+        margin-left:5px;
+        color:black;
+    }
   }
+
 
   &_logo-wrapper {
     align-items: center;
